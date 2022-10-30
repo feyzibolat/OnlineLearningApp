@@ -13,6 +13,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import {
     IconButton,
     TextButton,
+    VerticalCourseCard,
 } from '../../components'
 
 import {
@@ -134,6 +135,30 @@ const Home = () => {
         )
     }
 
+    function renderCourses() {
+        return (
+            <FlatList
+                horizontal
+                data={dummyData.courses_list_1}
+                listKey="Courses"
+                keyExtractor={item => `Courses-${item.id}`}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                    marginTop: SIZES.padding
+                }}
+                renderItem={({ item, index }) => (
+                    <VerticalCourseCard
+                        containerStyle={{
+                            marginLeft: index === 0 ? SIZES.padding : SIZES.radius,
+                            marginRight: index === dummyData.courses_list_1.length - 1 ? SIZES.padding : 0
+                        }}
+                        course={item}
+                    />
+                )}
+            />
+        )
+    }
+
     return (
         <SafeAreaView
             style={{
@@ -155,6 +180,7 @@ const Home = () => {
                 {renderStartLearning()}
 
                 {/* Courses */}
+                {renderCourses()}
 
             </ScrollView>
 
