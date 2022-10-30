@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import 'react-native-gesture-handler';
 
 import {
   MainLayout
@@ -15,7 +16,7 @@ const _loadAssets = async () => {
   await Font.loadAsync(CustomFonts);
 };
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   LogBox.ignoreAllLogs(true);
