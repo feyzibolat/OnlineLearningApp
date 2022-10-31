@@ -7,6 +7,8 @@ import {
     ScrollView,
     StyleSheet,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { toggleTheme } from '../../store/themeActions';
 
 import {
     IconButton,
@@ -20,10 +22,22 @@ import {
 import { COLORS, SIZES, FONTS, icons, images } from '../../constants';
 
 
-const Profile = () => {
+const Profile = ({ appTheme, toggleTheme }) => {
 
     const [newCourseNotification, setNewCourseNotification] = React.useState(false)
     const [studyReminder, setStudyReminder] = React.useState(false)
+
+    // Handler
+
+    function toggleThemeHandler() {
+        if (appTheme?.name == "light") {
+            toggleTheme("dark")
+        } else {
+            toggleTheme("light")
+        }
+    }
+
+    // Render
 
     function renderHeader() {
         return (
@@ -48,6 +62,7 @@ const Profile = () => {
                     iconStyle={{
                         tintColor: COLORS.black
                     }}
+                    onPress={() => toggleThemeHandler()}
                 />
             </View>
         )
@@ -270,7 +285,7 @@ const Profile = () => {
         <View
             style={{
                 flex: 1,
-                backgroundColor: COLORS.white
+                backgroundColor: appTheme.backgroundColor1,
             }}
         >
             {/* Header */}
@@ -305,4 +320,16 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Profile;
+function mapStateToProps(state) {
+    return {
+        appTheme: state.appTheme,
+        error: state.error
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        toggleTheme: (themeType) => { return dispatch(toggleTheme(themeType)) }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
