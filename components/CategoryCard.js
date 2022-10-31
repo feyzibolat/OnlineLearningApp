@@ -12,7 +12,7 @@ const CategoryCard = ({ category, containerStyle }) => {
         <TouchableOpacity>
             <ImageBackground
                 source={category?.thumbnail}
-                resizeMode="contain"
+                resizeMode="cover"
                 style={{
                     height: 150,
                     width: 200,
@@ -20,6 +20,9 @@ const CategoryCard = ({ category, containerStyle }) => {
                     paddingHorizontal: SIZES.radius,
                     justifyContent: 'flex-end',
                     ...containerStyle
+                }}
+                imageStyle={{
+                    borderRadius: SIZES.radius
                 }}
             >
                 <Text
