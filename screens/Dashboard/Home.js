@@ -8,6 +8,8 @@ import {
     SafeAreaView
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native'
+
 import { FlatList } from 'react-native-gesture-handler';
 
 import {
@@ -72,6 +74,8 @@ const Section = ({
 }
 
 const Home = () => {
+
+    const navigation = useNavigation();
 
     function renderHeader() {
         return (
@@ -221,11 +225,13 @@ const Home = () => {
                     }}
                     renderItem={({ item, index }) => (
                         <CategoryCard
+                            sharedElementPrefix="Home"
                             category={item}
                             containerStyle={{
                                 marginLeft: index == 0 ? SIZES.padding : SIZES.base,
                                 marginRight: index == dummyData.categories.length - 1 ? SIZES.padding : 0
                             }}
+                            onPress={() => navigation.navigate("CourseListing", { category: item, sharedElementPrefix: "Home" })}
                         />
                     )}
                 />

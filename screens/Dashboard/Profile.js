@@ -51,6 +51,7 @@ const Profile = ({ appTheme, toggleTheme }) => {
             >
                 <Text
                     style={{
+                        color: appTheme?.textColor,
                         ...FONTS.h1
                     }}
                 >
@@ -60,7 +61,7 @@ const Profile = ({ appTheme, toggleTheme }) => {
                 <IconButton
                     icon={icons.sun}
                     iconStyle={{
-                        tintColor: COLORS.black
+                        tintColor: appTheme?.tintColor
                     }}
                     onPress={() => toggleThemeHandler()}
                 />
@@ -77,7 +78,7 @@ const Profile = ({ appTheme, toggleTheme }) => {
                     paddingHorizontal: SIZES.radius,
                     paddingVertical: 20,
                     borderRadius: SIZES.radius,
-                    backgroundColor: COLORS.primary3
+                    backgroundColor: appTheme?.backgroundColor2
                 }}
             >
                 {/* Profile Image */}
@@ -197,10 +198,10 @@ const Profile = ({ appTheme, toggleTheme }) => {
                             marginTop: SIZES.padding,
                             paddingHorizontal: SIZES.radius,
                             borderRadius: 20,
-                            backgroundColor: COLORS.white
+                            backgroundColor: appTheme?.backgroundColor4
                         }}
                         labelStyle={{
-                            color: COLORS.primary
+                            color: appTheme?.textColor2
                         }}
                     />
                 </View>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { LogBox } from 'react-native';
+import { LogBox, Easing } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 import 'react-native-gesture-handler';
 
 import { createStore, applyMiddleware } from 'redux'
@@ -10,7 +10,8 @@ import thunk from 'redux-thunk';
 import themeReducer from './store/themeReducer';
 
 import {
-  MainLayout
+  MainLayout,
+  CourseListing
 } from "./screens";
 
 import AppLoading from 'expo-app-loading';
@@ -21,7 +22,33 @@ const _loadAssets = async () => {
   await Font.loadAsync(CustomFonts);
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createSharedElementStackNavigator();
+const options = {
+  gestureEnabled: false,
+  transitionSpec: {
+    open: {
+      animation: 'timing',
+      config: {
+        duration: 400,
+        easing: Easing.inOut(Easing.ease)
+      }
+    },
+    close: {
+      animation: 'timing',
+      config: {
+        duration: 400,
+        easing: Easing.inOut(Easing.ease)
+      }
+    }
+  },
+  cardStyleInterpolator: ({ current: { progress } }) => {
+    return {
+      cardStyle: {
+        opacity: progress
+      }
+    }
+  }
+}
 const store = createStore(
   themeReducer,
   applyMiddleware(thunk)
@@ -53,13 +80,21 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
+            useNativeDriver: true,
             headerShown: false
           }}
           initialRouteName={'Dashboard'}
+          detachInactiveScreens={false}
         >
           <Stack.Screen
             name="Dashboard"
             component={MainLayout}
+          />
+
+          <Stack.Screen
+            name="CourseListing"
+            component={CourseListing}
+            options={() => options}
           />
         </Stack.Navigator>
       </NavigationContainer>

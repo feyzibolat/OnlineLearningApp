@@ -6,7 +6,7 @@ import {
     TextInput,
     ImagePropTypes,
 } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 import { Shadow } from 'react-native-shadow-2';
 import { FlatList } from 'react-native-gesture-handler';
 
@@ -26,6 +26,7 @@ import {
 import { COLORS, SIZES, FONTS, icons, dummyData } from '../../constants'
 
 const Search = () => {
+    const navigation = useNavigation();
 
     const scrollViewRef = React.useRef()
 
@@ -108,6 +109,7 @@ const Search = () => {
                     }}
                     renderItem={({ item, index }) => (
                         <CategoryCard
+                            sharedElementPrefix="Search"
                             category={item}
                             containerStyle={{
                                 height: 130,
@@ -115,6 +117,7 @@ const Search = () => {
                                 marginTop: SIZES.radius,
                                 marginLeft: (index + 1) % 2 == 0 ? SIZES.radius : SIZES.padding
                             }}
+                            onPress={() => navigation.navigate("CourseListing", { category: item, sharedElementPrefix: "Search" })}
                         />
                     )}
                 />

@@ -6,7 +6,7 @@ import {
     Image,
     Animated
 } from 'react-native';
-
+import { connect } from 'react-redux'
 import { Shadow } from "react-native-shadow-2";
 import {
     Home,
@@ -134,7 +134,7 @@ const Tabs = ({ scrollX, onBottomTabPress }) => {
     )
 }
 
-const MainLayout = () => {
+const MainLayout = ({ appTheme }) => {
 
     const flatListRef = React.useRef()
     const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -194,9 +194,10 @@ const MainLayout = () => {
         return (
             <View
                 style={{
-                    marginBottom: 20,
+                    paddingBottom: SIZES.height > 800 ? 20 : 5,
                     paddingHorizontal: SIZES.padding,
-                    paddingVertical: SIZES.radius
+                    paddingVertical: SIZES.radius,
+                    backgroundColor: appTheme?.backgroundColor1
                 }}
             >
                 <Shadow
@@ -209,7 +210,7 @@ const MainLayout = () => {
                         style={{
                             flex: 1,
                             borderRadius: SIZES.radius,
-                            backgroundColor: COLORS.primary3
+                            backgroundColor: appTheme?.backgroundColor2
                         }}
                     >
                         <Tabs
@@ -238,4 +239,14 @@ const MainLayout = () => {
     )
 }
 
-export default MainLayout;
+function mapStateToProps(state) {
+    return {
+        appTheme: state.appTheme
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
