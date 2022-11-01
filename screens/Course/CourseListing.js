@@ -32,9 +32,40 @@ const CourseListing = ({ navigation, route }) => {
 
     const { category, sharedElementPrefix } = route.params;
 
+    const headerSharedValue = useSharedValue(80)
+
+    const headerFadeAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            opacity: interpolate(headerSharedValue.value, [80, 0], [0, 1])
+        }
+    })
+
+    const headerTranslateAnimatedStyle = useAnimatedStyle(() => {
+        return {
+            transform: [
+                {
+                    translateY: headerSharedValue.value
+                }
+            ]
+        }
+    })
+
+    // Handler
+
+    function backHandler() {
+        navigation.goBack()
+    }
+
     // Render
 
     function renderHeader() {
+
+        headerSharedValue.value = withDelay(500,
+            withTiming(0, {
+                duration: 500
+            })
+        )
+
         return (
             <Animated.View
                 style={{
@@ -87,7 +118,9 @@ const CourseListing = ({ navigation, route }) => {
                 </Animated.View>
 
                 {/* Back */}
-                <Animated.View>
+                <Animated.View
+                    style={headerFadeAnimatedStyle}
+                >
                     <IconButton
                         icon={icons.back}
                         iconStyle={{
@@ -104,9 +137,25 @@ const CourseListing = ({ navigation, route }) => {
                             borderRadius: 25,
                             backgroundColor: COLORS.white
                         }}
-                        
+                        onPress={() => {
+                            backHandler()
+                        }}
                     />
                 </Animated.View>
+
+                {/* Category Image */}
+                <Animated.Image
+                    source={images.mobile_image}
+                    resizeMode="contain"
+                    style={[{
+                        position: 'absolute',
+                        right: 40,
+                        bottom: -40,
+                        width: 100,
+                        height: 200
+                    }, headerFadeAnimatedStyle,
+                        headerTranslateAnimatedStyle]}
+                />
             </Animated.View>
         )
     }
