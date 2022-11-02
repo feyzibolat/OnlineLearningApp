@@ -23,7 +23,8 @@ import { SharedElement } from "react-navigation-shared-element";
 import {
     IconButton,
     HorizontalCourseCard,
-    LineDivider
+    LineDivider,
+    FilterModal,
 } from '../../components'
 
 import { COLORS, SIZES, FONTS, icons, images, dummyData } from '../../constants'
@@ -43,6 +44,8 @@ const CourseListing = ({ navigation, route }) => {
     })
 
     const headerSharedValue = useSharedValue(80)
+    const filterModalSharedValue1 = useSharedValue(SIZES.height)
+    const filterModalSharedValue2 = useSharedValue(SIZES.height)
 
     // Handler
 
@@ -194,6 +197,11 @@ const CourseListing = ({ navigation, route }) => {
                         onPress={() => {
 
                             if (scrollY.value > 0 && scrollY.value <= 200) {
+                                flatListRef?.current?.scrollOffset({
+                                    offset: 0,
+                                    animated: true
+                                })
+
                                 setTimeout(() => {
                                     headerSharedValue.value =
                                         withTiming(80, {
@@ -276,6 +284,15 @@ const CourseListing = ({ navigation, route }) => {
                                 borderRadius: 10,
                                 backgroundColor: COLORS.primary
                             }}
+                            onPress={() => {
+                                filterModalSharedValue1.value = withTiming(0, {
+                                    duration: 100
+                                })
+
+                                filterModalSharedValue2.value = withDelay(100, withTiming(0, {
+                                    duration: 500
+                                }))
+                            }}
                         />
                     </View>
                 }
@@ -311,6 +328,12 @@ const CourseListing = ({ navigation, route }) => {
 
             {/* Header */}
             {renderHeader()}
+
+            {/* Filter Modal */}
+            <FilterModal
+                filterModalSharedValue1={filterModalSharedValue1}
+                filterModalSharedValue2={filterModalSharedValue2}
+            />
         </View>
     )
 }
