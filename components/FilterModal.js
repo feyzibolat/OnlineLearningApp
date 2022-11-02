@@ -122,6 +122,7 @@ const FilterModal = ({ filterModalSharedValue1, filterModalSharedValue2 }) => {
 
     const [selectedClassType, setSelectedClassType] = React.useState("")
     const [selectedClassLevel, setSelectedClassLevel] = React.useState("")
+    const [selectedCreatedWithin, setSelectedCreatedWithin] = React.useState("")
 
     const filterModalContainerAnimatedStyle = useAnimatedStyle(() => {
         return {
@@ -299,6 +300,55 @@ const FilterModal = ({ filterModalSharedValue1, filterModalSharedValue2 }) => {
                                             isSelected={selectedClassLevel === item?.id}
                                             onPress={() => {
                                                 setSelectedClassLevel(item.id)
+                                            }}
+                                        />
+                                    )
+                                })}
+                            </View>
+                        </View>
+
+                        {/* Created Within */}
+                        <View
+                            style={{
+                                marginTop: SIZES.radius
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    ...FONTS.h3
+                                }}
+                            >
+                                Created Within
+                            </Text>
+
+                            <View
+                                style={{
+                                    flex: 1,
+                                    flexDirection: 'row',
+                                    flexWrap: 'wrap'
+                                }}
+                            >
+                                {constants.created_within.map((item, index) => {
+                                    return (
+                                        <TextButton
+                                            key={`CreatedWithin-${index}`}
+                                            label={item?.label}
+                                            contentContainerStyle={{
+                                                height: 45,
+                                                paddingHorizontal: SIZES.radius,
+                                                marginLeft: index % 3 == 0 ? 0 : SIZES.radius,
+                                                marginTop: SIZES.radius,
+                                                borderWidth: 1,
+                                                borderRadius: SIZES.radius,
+                                                borderColor: COLORS.gray20,
+                                                backgroundColor: item?.id == selectedCreatedWithin ? COLORS.primary3 : null
+                                            }}
+                                            labelStyle={{
+                                                color: item?.id == selectedCreatedWithin ? COLORS.white : COLORS.black,
+                                                ...FONTS.body3
+                                            }}
+                                            onPress={() => {
+                                                setSelectedCreatedWithin(item.id)
                                             }}
                                         />
                                     )
