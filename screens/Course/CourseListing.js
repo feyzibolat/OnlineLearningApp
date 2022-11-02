@@ -192,7 +192,21 @@ const CourseListing = ({ navigation, route }) => {
                             backgroundColor: COLORS.white
                         }}
                         onPress={() => {
-                            backHandler()
+
+                            if (scrollY.value > 0 && scrollY.value <= 200) {
+                                setTimeout(() => {
+                                    headerSharedValue.value =
+                                        withTiming(80, {
+                                            duration: 500
+                                        }, () => {
+                                            runOnJS(backHandler())
+                                        })
+                                }, 100);
+
+                            } else {
+                                backHandler()
+                            }
+
                         }}
                     />
                 </Animated.View>
