@@ -16,7 +16,8 @@ import Animated, {
 
 import {
     TextButton,
-    LineDivider
+    LineDivider,
+    TwoPointSlider,
 } from '../components'
 
 import {
@@ -152,6 +153,51 @@ const FilterModal = ({ filterModalSharedValue1, filterModalSharedValue2 }) => {
             ]
         }
     })
+
+    function renderFooter() {
+        return (
+            <View
+                style={{
+                    flexDirection: 'row',
+                    height: 50,
+                    marginBottom: 30,
+                    paddingHorizontal: SIZES.padding,
+                }}
+            >
+                {/* Reset */}
+                <TextButton
+                    label="Reset"
+                    contentContainerStyle={{
+                        flex: 1,
+                        borderRadius: SIZES.radius,
+                        borderWidth: 1,
+                        backgroundColor: null
+                    }}
+                    labelStyle={{
+                        color: COLORS.black,
+                        ...FONTS.h3
+                    }}
+                />
+
+                {/* Apply */}
+                <TextButton
+                    label="Apply"
+                    contentContainerStyle={{
+                        flex: 1,
+                        marginLeft: SIZES.radius,
+                        borderRadius: SIZES.radius,
+                        borderWidth: 2,
+                        borderColor: COLORS.primary,
+                        backgroundColor: COLORS.primary
+                    }}
+                    labelStyle={{
+                        color: COLORS.white,
+                        ...FONTS.h3
+                    }}
+                />
+            </View>
+        )
+    }
 
     return (
         <Animated.View
@@ -355,7 +401,37 @@ const FilterModal = ({ filterModalSharedValue1, filterModalSharedValue2 }) => {
                                 })}
                             </View>
                         </View>
+
+                        {/* Class Length */}
+                        <View
+                            style={{
+                                marginTop: SIZES.padding
+                            }}
+                        >
+                            <Text style={{
+                                ...FONTS.h3
+                            }}>
+                                Class Length
+                            </Text>
+
+                            <View
+                                style={{
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <TwoPointSlider
+                                    values={[20, 50]}
+                                    min={15}
+                                    max={60}
+                                    postfix="min"
+                                    onValuesChange={(values) => console.log(values)}
+                                />
+                            </View>
+                        </View>
                     </ScrollView>
+
+                    {/* Footer */}
+                    {renderFooter()}
                 </Animated.View>
             </Animated.View>
         </Animated.View>
