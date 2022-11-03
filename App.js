@@ -11,7 +11,8 @@ import themeReducer from './store/themeReducer';
 
 import {
   MainLayout,
-  CourseListing
+  CourseListing,
+  CourseDetails
 } from "./screens";
 
 import AppLoading from 'expo-app-loading';
@@ -95,6 +96,11 @@ const App = () => {
             name="CourseListing"
             component={CourseListing}
             options={() => options}
+          />
+
+          <Stack.Screen
+            name="CourseDetails"
+            component={CourseDetails}
           />
         </Stack.Navigator>
       </NavigationContainer>

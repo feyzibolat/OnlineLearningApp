@@ -13,6 +13,7 @@ import { SIZES, COLORS, FONTS, icons } from '../constants'
 const HorizontalCourseCard = ({
     containerStyle,
     course,
+    onPress
 }) => {
     return (
         <TouchableOpacity
@@ -20,6 +21,7 @@ const HorizontalCourseCard = ({
                 flexDirection: 'row',
                 ...containerStyle
             }}
+            onPress={onPress}
         >
             {/* Thumbnail */}
             <ImageBackground

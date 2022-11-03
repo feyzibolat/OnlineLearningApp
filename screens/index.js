@@ -6,6 +6,7 @@ import Search from "./Dashboard/Search"
 
 // Course
 import CourseListing from "./Course/CourseListing"
+import CourseDetails from "./Course/CourseDetails"
 
 export {
     MainLayout,
@@ -13,5 +14,6 @@ export {
     Profile,
     Search,
 
-    CourseListing
+    CourseListing,
+    CourseDetails,
 }
