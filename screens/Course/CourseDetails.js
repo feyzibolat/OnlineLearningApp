@@ -15,6 +15,11 @@ import {
     LineDivider,
 } from '../../components';
 
+
+import CourseChapters from "./CourseTabs/CourseChapters"
+import CourseFiles from "./CourseTabs/CourseFiles"
+import CourseDiscussions from "./CourseTabs/CourseDiscussions"
+
 import {
     COLORS,
     FONTS,
@@ -111,6 +116,7 @@ const Tabs = ({ scrollX, onTabPress }) => {
                             justifyContent: 'center'
                         }}
                         onPress={() => {
+                            Keyboard.dismiss()
                             onTabPress(index)
                         }}
                     >
@@ -366,9 +372,9 @@ const CourseDetails = ({ navigation, route }) => {
                                     width: SIZES.width
                                 }}
                             >
-                                {index == 0 && <Text>Chapters</Text>}
-                                {index == 1 && <Text>Files</Text>}
-                                {index == 2 && <Text>Discussions</Text>}
+                                {index == 0 && <CourseChapters />}
+                                {index == 1 && <CourseFiles />}
+                                {index == 2 && <CourseDiscussions />}
                             </View>
                         )
                     }}
